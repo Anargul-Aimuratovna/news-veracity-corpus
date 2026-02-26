@@ -1,0 +1,143 @@
+<View>
+
+  <!-- ===== TEXT ===== -->
+  <Header value="Текст новости"/>
+  <Text name="text" value="$text"/>
+
+  <!-- ===== NEWS FIELDS (document-level) ===== -->
+  <Header value="NEWS поля (заполняются целиком, без выделения фраз)"/>
+  <View style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;">
+    <View>
+      <Header value="SOURCE_TYPE"/>
+      <TextArea name="source_type" toName="text" rows="2"
+                placeholder="Напр.: соцсети/паблик/телеграм/СМИ/ссылка/автор..."/>
+    </View>
+    <View>
+      <Header value="TIME_REF"/>
+      <TextArea name="time_ref" toName="text" rows="2"
+                placeholder="Напр.: 'сегодня', 'в ближайшее время', 'в 2025 году'..."/>
+    </View>
+    <View>
+      <Header value="GEO_LOC"/>
+      <TextArea name="geo_loc" toName="text" rows="2"
+                placeholder="Напр.: Казахстан, Жамбылская область, Тараз"/>
+    </View>
+    <View>
+      <Header value="TARGET_ENTITY"/>
+      <TextArea name="target_entity" toName="text" rows="2"
+                placeholder="Кого/что затрагивает (через запятую)"/>
+    </View>
+  </View>
+
+  <!-- ===== DOC LABEL ===== -->
+  <Header value="REAL_OR_FAKE"/>
+  <Choices name="doc_label" toName="text" choice="single" showInLine="true" required="true">
+    <Choice value="real"/>
+    <Choice value="fake"/>
+  </Choices>
+
+  <!-- ===== ДЛЯ FAKE ===== -->
+  <View visibleWhen="choice-selected" whenTagName="doc_label" whenChoiceValue="fake">
+
+    <!-- ===== FAKE TYPE (MULTIPLE) ===== -->
+    <Header value="FAKE_TYPE (можно выбрать несколько)"/>
+    <Choices name="fake_news_type" toName="text" choice="multiple" showInLine="true" required="true">
+      <Choice value="conspiracy_theory"/>
+      <Choice value="fabricated_news"/>
+      <Choice value="satire_or_parody"/>
+      <Choice value="misleading_content"/>
+      <Choice value="manipulated_content"/>
+      <Choice value="false_context"/>
+      <Choice value="false_connection"/>
+      <Choice value="imposter_content"/>
+      <Choice value="deepfake_synthetic_media"/>
+      <Choice value="propaganda"/>
+      <Choice value="advertising_disguised"/>
+      <Choice value="hoax"/>
+      <Choice value="rumor"/>
+    </Choices>
+
+    <!-- ===== AUTHOR INTENT ===== -->
+    <Header value="AUTHOR_INTENT"/>
+    <TextArea name="author_intent" toName="text" rows="3"
+              placeholder="Коротко: цель автора (посеять страх/недоверие/вызвать гнев/продвинуть повестку...)"/>
+
+    <!-- ===== MARKERS ===== -->
+    <Header value="Маркерные фразы (Level 2): выдели фразы в тексте и присвой ярлык (подтип)"/>
+    <Header value="Технику отмечать НЕ нужно — она восстановится автоматически по спанам."/>
+    <Header value="DISINFORMATION_TECHNIQUE"/>
+    <!-- ================= CLICKBAIT ================= -->
+    <Header value="clickbait — подтипы (Level 2)"/>
+    <Labels name="markers_clickbait" toName="text">
+      <Label value="clickbait_sensationalism"/>
+      <Label value="clickbait_curiosity_gap"/>
+      <Label value="clickbait_promise_of_benefit"/>
+      <Label value="clickbait_dramatic_headline_mismatch"/>
+      <Label value="clickbait_urgency_call_to_click"/>
+    </Labels>
+
+    <!-- ============ EMOTIONAL PRESSURE ============ -->
+    <Header value="emotional_pressure — подтипы (Level 2)"/>
+    <Labels name="markers_emotional_pressure" toName="text">
+      <Label value="emotional_pressure_fear_appeal"/>
+      <Label value="emotional_pressure_anger_outrage"/>
+      <Label value="emotional_pressure_pity_empathy"/>
+      <Label value="emotional_pressure_moral_shaming"/>
+      <Label value="emotional_pressure_hate_dehumanization"/>
+    </Labels>
+
+    <!-- ================= EXAGGERATION ================= -->
+    <Header value="exaggeration — подтипы (Level 2)"/>
+    <Labels name="markers_exaggeration" toName="text">
+      <Label value="exaggeration_absolutization"/>
+      <Label value="exaggeration_scale_inflation"/>
+      <Label value="exaggeration_number_distortion"/>
+      <Label value="exaggeration_causal_overclaim"/>
+      <Label value="exaggeration_superlatives"/>
+    </Labels>
+
+    <!-- ================= DOWNPLAYING ================= -->
+    <Header value="downplaying — подтипы (Level 2)"/>
+    <Labels name="markers_downplaying" toName="text">
+      <Label value="downplaying_minimization_language"/>
+      <Label value="downplaying_risk_denial"/>
+      <Label value="downplaying_selective_omission"/>
+      <Label value="downplaying_false_reassurance"/>
+      <Label value="downplaying_whataboutism"/>
+    </Labels>
+
+    <!-- ================= SCAPEGOATING ================= -->
+    <Header value="scapegoating — подтипы (Level 2)"/>
+    <Labels name="markers_scapegoating" toName="text">
+      <Label value="scapegoating_outgroup_blame"/>
+      <Label value="scapegoating_individual_villainization"/>
+      <Label value="scapegoating_conspiracy_blame"/>
+      <Label value="scapegoating_collective_guilt"/>
+      <Label value="scapegoating_call_for_punishment"/>
+    </Labels>
+
+    <!-- ================= MISATTRIBUTION ================= -->
+    <Header value="misattribution — подтипы (Level 2)"/>
+    <Labels name="markers_misattribution" toName="text">
+      <Label value="misattribution_fake_official_source"/>
+      <Label value="misattribution_quote_misattribution"/>
+      <Label value="misattribution_document_forgery_claim"/>
+      <Label value="misattribution_expert_misattribution"/>
+      <Label value="misattribution_context_misattribution"/>
+    </Labels>
+
+  </View>
+
+  <!-- ===== ДЛЯ ВСЕХ (real и fake) ===== -->
+  <Header value="CONFIDENCE"/>
+  <Choices name="confidence" toName="text" choice="single" showInLine="true" required="true">
+    <Choice value="low"/>
+    <Choice value="medium"/>
+    <Choice value="high"/>
+  </Choices>
+
+  <Header value="NOTES (обоснование решения)"/>
+  <TextArea name="notes" toName="text" rows="3"
+            placeholder="Почему это fake/real + на чем основано (нет источников, анонимные утверждения, и т.п.)"/>
+
+</View>
