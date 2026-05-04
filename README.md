@@ -75,17 +75,6 @@ Each group is represented by fine-grained Level 2 subtypes.
 
 ---
 
-## Key Design Principle
-
-Higher-level disinformation techniques are reconstructed automatically from span-level annotations rather than manually assigned.
-
-This improves:
-- consistency  
-- interpretability  
-- suitability for NLP tasks  
-
----
-
 ## Dataset Format
 
 - Format: JSON  
@@ -101,24 +90,6 @@ This improves:
 
 ---
 
-## Statistics (optional — update if needed)
-
-- Total samples: XXXX  
-- Fake: XXXX  
-- Real: XXXX  
-
----
-
-## Purpose
-
-The dataset is intended for:
-
-- Fake news detection  
-- NLP research  
-- Explainable AI  
-- Disinformation analysis  
-
----
 
 ## License
 
