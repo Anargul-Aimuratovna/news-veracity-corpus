@@ -1,172 +1,51 @@
-# A Bilingual Kazakh-Russian News Veracity Corpus
+# KazFakeCorpus: A Bilingual Kazakh-Russian News Veracity Corpus
 
-This repository contains a bilingual Kazakh-Russian news veracity corpus for automatic fake news detection, disinformation analysis, and interpretable NLP research.
-
----
-
-## What's New (v2.0)
-
-The corpus has been significantly expanded and refined based on reviewer feedback:
-
-- **Dataset size increased to 280 texts** (up from an initial pilot of 21 labeled texts)
-- **Real debunked fake-news examples added**: FAKE-class texts were prepared based on debunked fake messages and fact-checking materials from Kazakhstan-related sources, including Factcheck.kz.
-- **Source diversity expanded**: REAL-class texts now cover three major Kazakhstani news outlets across both Kazakh and Russian languages.
-- **Bilingual coverage improved**: both Kazakh and Russian texts are represented in both FAKE and REAL classes.
-- **Corpus format**: exported from Label Studio as JSON (`external_validation_set.json`)
+A bilingual dataset for fake news detection in Kazakh and Russian, developed as part of a research study on automatic veracity classification of news texts.
 
 ---
 
-## Overview
+## Repository Structure
 
-To construct the research corpus, a multi-level annotation scheme for news texts was developed for the task of automatic detection of reliable and unreliable content.
-
-The scheme combines **document-level** and **span-level** annotation, enabling both global classification and fine-grained analysis of disinformation markers.
-
----
-
-## Annotation Structure
-
-### Document-Level Annotation
-
-Each text is annotated with:
-
-| Field | Description |
-|-------|-------------|
-| `SOURCE_TYPE` | Source type (social media, news outlet, messenger, etc.) |
-| `TIME_REF` | Temporal reference of the claim |
-| `GEO_LOC` | Geographic location |
-| `TARGET_ENTITY` | Target entity of the claim |
-| `doc_label` | `real` / `fake` |
-| `confidence` | Annotator confidence score |
-| `notes` | Justification for the label |
-
----
-
-### Fake-Specific Annotation
-
-For texts labeled as `fake`, additional labels are provided:
-
-**`fake_news_type`** (multi-label):
-
-| Type | Description |
-|------|-------------|
-| `conspiracy_theory` | Claims of hidden actors or secret plans |
-| `fabricated_news` | Entirely invented stories |
-| `misleading_content` | True facts presented in a misleading context |
-| `propaganda` | Content promoting a political agenda |
-| `hoax` | Deliberately deceptive content |
-| `rumor` | Unverified circulating claims |
-
----
-
-### Author Intent
-
-Fake news texts are additionally annotated with `author_intent`:
-
-| Intent | Description |
-|--------|-------------|
-| `fear` | Intended to provoke fear or panic |
-| `distrust` | Intended to undermine trust in institutions |
-| `anger` | Intended to provoke anger or outrage |
-| `agenda_promotion` | Intended to promote a specific viewpoint |
-| `engagement` | Intended to maximize sharing and virality |
-
----
-
-### Span-Level Annotation
-
-Span-level annotation captures local markers of disinformation at the token/phrase level.
-
-Marker groups include:
-
-| Group | Description |
-|-------|-------------|
-| `clickbait` | Sensational or misleading headlines/phrases |
-| `emotional_pressure` | Language designed to provoke emotional response |
-| `exaggeration` | Claims that overstate facts |
-| `downplaying` | Claims that minimize or dismiss facts |
-| `scapegoating` | Blaming specific groups without evidence |
-| `misattribution` | False attribution of quotes or actions |
-
-Each group is represented by fine-grained Level 2 subtypes.
-
----
-
-## Dataset Format
-
-- **Format**: JSON
-- **File**: `external_validation_set.json`
-- **Encoding**: UTF-8
-- **Structure**: simplified JSON format for classification experiments
-
-### JSON Schema
-
-```json
-[
-  {
-    "№": "1",
-    "TEXT": "Original text of the news item",
-    "Language": "RU",
-    "Source": "Factcheck.kz",
-    "Class": "FAKE"
-  }
-]
+```
+news-veracity-corpus/
+├── data/
+│   ├── corpus_labelstudio_export.json   # Main annotated corpus (Label Studio export)
+│   └── external_validation_set.json     # External validation set (added in v2.0)
+├── images/
+│   └── KazFakeCorpus_2.png              # Annotation schema diagram
+├── label_studio_config.xml              # Label Studio annotation configuration
+├── schema_description.md                # Full annotation schema documentation
+└── README.md
 ```
 
-| Field | Type | Values |
-|-------|------|--------|
-| `№` | string | Sequential number (1–280) |
-| `TEXT` | string | Raw text of the news item |
-| `Language` | string | `RU` / `KZ` |
-| `Source` | string | Source outlet name |
-| `Class` | string | `FAKE` / `REAL` |
-
 ---
 
-## Languages
+## Data Files
 
-| Language | Code | Script |
-|----------|------|--------|
-| Kazakh | KZ | Cyrillic |
-| Russian | RU | Cyrillic |
+### corpus_labelstudio_export.json
+The main corpus exported from Label Studio. Contains fully annotated texts with document-level and span-level annotation. Full schema is described in `schema_description.md`.
 
----
 
-## Intended Use
+## Annotation
 
-This corpus is designed to support:
+The main corpus uses a multi-level annotation scheme combining document-level labels (veracity class, fake news type, author intent) and span-level disinformation markers (clickbait, emotional pressure, exaggeration, scapegoating, misattribution). Full details are provided in `schema_description.md`.
 
-- Binary fake news classification (FAKE / REAL)
-- Cross-lingual fake news detection
-- Multilabel disinformation type classification
-- Span-level disinformation marker detection
-- Ablation studies on annotation granularity
-- Cross-domain generalization experiments
-
----
-
-## Limitations
-
-- The corpus covers primarily Kazakhstani news topics; cross-national generalization may be limited.
-- Fake texts are sourced from fact-checking platforms, which may introduce a selection bias toward more viral or high-impact disinformation.
-- Span-level annotations are subjective and reflect individual annotator interpretation.
-- The dataset may not fully represent all domains of disinformation circulating in Kazakhstan.
+![Annotation Schema](images/KazFakeCorpus_2.png)
 
 ---
 
 ## License
 
-This dataset is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
+This dataset is released under the **Creative Commons Attribution 4.0 International (CC BY 4.0)**.  
 
+---
+
+## Citation
+
+If you use this dataset, please cite the accompanying paper.
 
 ---
 
 ## Disclaimer
 
-This dataset may contain subjective annotations and potential biases inherent to the sources from which texts were collected. The authors are not responsible for misuse or misinterpretation of the data. All fake news texts are included solely for research purposes.
-
----
-
-## Dataset Schema
-
-![Schema](images/KazFakeCorpus_2.png)
+The dataset may contain subjective annotations. All fake news texts are included solely for research purposes. The authors are not responsible for misuse of the data.
